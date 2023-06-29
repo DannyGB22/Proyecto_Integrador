@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Preferencias de Notificación</title>
+    <link rel="stylesheet" type="text/css" href="../static/notificaciones.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Preferencias de Notificación</h1>
+        <form>
+            <h2>Configuración de Notificaciones</h2>
+            <p>Selecciona cómo deseas recibir los recordatorios de eventos:</p>
+            <div class="notification-options">
+                <label>
+                    <input type="checkbox" name="email" checked>
+                    Recibir por correo electrónico
+                </label>
+                <label>
+                    <input type="checkbox" name="sms">
+                    Recibir por mensaje de texto
+                </label>
+                <label>
+                    <input type="checkbox" name="push">
+                    Recibir notificaciones push en la aplicación
+                </label>
+            </div>
+
+            <button type="submit">Guardar Preferencias</button>
+        </form>
+    </div>
+</body>
+</html>

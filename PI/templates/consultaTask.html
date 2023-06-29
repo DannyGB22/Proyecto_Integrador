@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de Tareas</title>
+  <link rel="stylesheet" type="text/css" href="../static/consutaTask.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Consulta de Tareas</h1>
+    <form>
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" name="fecha">
+
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" name="categoria">
+        <option value="">--Seleccione una categoría--</option>
+        <option value="trabajo">Trabajo</option>
+        <option value="personal">Personal</option>
+        <option value="estudio">Estudio</option>
+      </select>
+
+      <button type="submit">Buscar</button>
+    </form>
+
+    <div id="resultado">
+      <!-- Aquí se mostrarán los resultados de la consulta -->
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Programación Flexible</title>
+    <link rel="stylesheet" type="text/css" href="../static/programacionEV.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Programación Flexible</h1>
+        <form action="/editar-evento" method="post">
+            <input type="text" name="titulo" placeholder="Título del Evento" value="Evento de prueba">
+            <input type="date" name="fecha" placeholder="Fecha" value="2023-06-25">
+            <input type="time" name="hora" placeholder="Hora" value="15:00">
+            <input type="text" name="ubicacion" placeholder="Ubicación" value="Salón principal">
+            <textarea name="descripcion" placeholder="Descripción"></textarea>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
+</body>
+</html>

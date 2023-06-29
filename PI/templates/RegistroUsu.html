@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuarios</title>
+    <link rel="stylesheet" type="text/css" href="../static/estilosRegistro.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Usuarios</h1>
+        <form action="/registroUsuarios" method="POST">
+            
+            <input type="text" class="pwd" name="nombre" placeholder="Nombre Completo">
+
+            <input type="email" class="pwd" name="email" placeholder="Correo Electronico">
+
+            <input type="password" id="password" name="password" placeholder="Contraseña">
+
+     
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar Contraseña">
+
+            <input  type="submit" value="Registrarse" >
+            
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="../static/estilosLogin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenido</h1>
+    <form action="{{url_for ('login')}}" method="POST">
+    
+      <input type="email" id="correo" name="email" placeholder="Correo Electronico">
+
+      <input type="password" id="password" name="password" placeholder="Contraseña">
+    <div class="button">
+      
+      <button type="submit">Iniciar sesión</button>
+
+      <button type="button" onclick="window.location.href='{{url_for('register')}}'">Registrarse</button>
+    </div>
+    </form>
+  </div>
+</body>
+</html>

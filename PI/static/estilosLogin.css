@@ -1,0 +1,100 @@
+
+body{
+
+    background-image: url("images/fondo2.jpeg");
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* background: linear-gradient(to bottom right, #1af1129f, #017a74, #e908d6b6); */
+}
+ 
+.container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 22px;
+    background-color: #000000b2;
+}
+    
+
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+input[type="email"],
+input[type="password"] {
+    width: 250px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    color: white;
+}
+
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-bottom: 2px solid #08f708c7;
+    outline: none;
+}
+
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #ccc;
+}
+
+.button button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #03a086;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    
+}
+
+button[type="submit"]:hover {
+    background-color: #0f62cf;
+}
+
+.button button[type="button"] {
+    padding: 10px 20px;
+    background-color: #0f62cf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.button button[type="button"]:hover {
+    background-color: #065eac;
+}
+
+.button{
+    display: flex;
+  }

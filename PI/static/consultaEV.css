@@ -1,0 +1,28 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .event-list {
+    margin-top: 20px;
+  }
+  
+  .event {
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .event h3 {
+    margin-top: 0;
+  }
+  
+  .event p {
+    margin-bottom: 5px;
+  }
+  
