@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../static/menu.css">
 </head>
 <body>
-    <div class="container">
+    <div class="menu">
         <h2>Bienvenido(a) a Piplot</h2>
         <nav>
             <ul>
@@ -21,5 +21,72 @@
             </ul>
         </nav>
     </div>
+    <br>
+    <br>
+    <div class="container">
+        <h2>Tareas</h2>
+        <table id="Tareas Registradas">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Titulo tarea</th>
+              <th>materia</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de entrega</th>
+              <th>Descripcion</th>
+              <th>Eliminar</th>
+              <th>Actualizar</th>
+            </tr>
+          </thead>
+          <tbody id="registrosBody">
+            <!-- Los registros se agregarán dinámicamente aquí -->
+            <tr>
+              <td>1</td>
+              <td>Ecuaciones Homogeneas</td>
+              <td>Matematicas Para la ING</td>
+              <td>2022-06-23</td>
+              <td>2022-06-24</td>
+              <td>Realizar los ejercicios del 10 al 9</td>
+              <td><button id="Eliminar", onclick="eliminarRegistro(1)">Eliminar</button></td>
+              <td><button id="Actualizar", onclick="actualizarRegistro(1)">Actualizar</button></td>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <br>
+      <br>
+      <div class="container">
+        <h2>Eventos</h2>
+        <table id="Tareas Registradas">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Titulo del evento</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Descripcion</th>
+              <th>Eliminar</th>
+              <th>Actualizar</th>
+            </tr>
+          </thead>
+          <tbody id="registrosBody">
+            <!-- Los registros se agregarán dinámicamente aquí -->
+            <tr>
+              <td>1</td>
+              <td>Rally Matematicas</td>
+              <td>23-06-2024</td>
+              <td>01:00 p.m</td>
+              <td>Llevar globos con agua, formularios, ropa etc.</td>
+              <td><button id="Eliminar", onclick="eliminarRegistro(1)">Eliminar</button></td>
+              <td><button id="Actualizar", onclick="actualizarRegistro(1)">Actualizar</button></td>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
 </body>
 </html>

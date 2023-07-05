@@ -1,10 +1,10 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.container {
+.menu {
     background: linear-gradient(to bottom right, #1af1129f, #017a74, #e908d6b6);
     padding: 20px;
 }
@@ -37,4 +37,104 @@ nav ul li a {
 nav ul li a:hover {
     background-color: #333;
     color: #fff;
+} */
+/* Estilos generales */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #04045e; /* Color de fondo atractivo */
+    background: linear-gradient(to bottom right, #420142, #04fdfd);
+    margin: 0;
+    padding: 0;
+    padding: 20px;
 }
+
+.menu {
+    background: linear-gradient(to bottom right, #FF00FF, #00FFFF, #FFA500);
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #ffffff; /* Fondo blanco para los contenedores */
+    padding: 30px;
+    border-radius: 5px; /* Bordes redondeados para los contenedores */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para los contenedores */
+    max-height: 300px; /*Ajusta esta altura según tus necesidades */
+    overflow: auto;
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #f2f2f2;
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+}
+
+a:hover {
+    background-color: #000000;
+    color: #ccc;
+} 
+
+/* ----------------------------------------------------------- */
+
+/* Estilos para las tablas */
+table {
+    
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+   
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #000000bb;
+    
+}
+
+th {
+    background-color: #04ff26d2;
+    color: #f2f2f2;
+}
+
+td button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+td button:hover {
+    background-color: #000000;
+}
+

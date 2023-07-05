@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for,flash
 from flask_mysqldb import MySQL
 
-
 #Estamos declarando el app y le estamos asignando un nombre
 # Inicializacion del servidor flask
 
