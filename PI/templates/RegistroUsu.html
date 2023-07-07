@@ -8,16 +8,16 @@
 <body>
     <div class="container">
         <h1>Registro de Usuarios</h1>
-        <form action="/registroUsuarios" method="POST">
+        <form action="/registroUsuario" method="POST">
             
-            <input type="text" class="pwd" name="nombre" placeholder="Nombre Completo">
+            <input type="text" class="pwd" name="nombre" placeholder="Nombre Completo" required>
 
-            <input type="email" class="pwd" name="email" placeholder="Correo Electronico">
+            <input type="email" class="pwd" name="email" placeholder="Correo Electronico"required>
 
-            <input type="password" id="password" name="password" placeholder="Contraseña">
+            <input type="password" id="password" name="password" placeholder="Contraseña"required>
 
      
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar Contraseña">
+            <!-- <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar Contraseña"> -->
 
             <input  type="submit" value="Registrarse" >
             

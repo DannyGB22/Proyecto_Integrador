@@ -8,13 +8,29 @@
 <body>
     <div class="container">
         <h1>Administración de Tareas</h1>
-        <form action="/agregar-tarea" method="post">
-            <input type="text" name="titulo" placeholder="Título de la Tarea">
-            <input type="date" name="fecha_vencimiento" placeholder="Fecha de Vencimiento">
-            <input type="text" name="prioridad" placeholder="Prioridad">
-            <textarea name="descripcion" placeholder="Descripción"></textarea>
+        <form action="{{ url_for('registroTareaf') }}" method="POST">
+            <input type="text" name="titulo" placeholder="Título de la Tarea" required>
+            <input type="text" name="materia" placeholder="Materia" required>
+            
+            <label for="fecha">Fecha Inicio</label>
+            <input type="date" name="fechaInicio" placeholder="Fecha de Inicio" required>
+
+            <label for="fecha">Fecha Fin</label>
+            <input type="date" name="fechaFin" placeholder="Fecha de Fin" required>
+
+            <input type="text" name="prioridad" placeholder="Prioridad" required>
+            <textarea name="descripcion" placeholder="Descripción" required></textarea>
             <button type="submit">Agregar Tarea</button>
         </form>
     </div>
+<center>
+    {%with mensajes= get_flashed_messages() %}
+    {% if mensajes%}
+      {%for msj in mensajes%}
+        <h3>{{ msj }}</h3>
+    {%endfor%}
+   {% endif %}
+  {%endwith%}
+</center>
 </body>
 </html>

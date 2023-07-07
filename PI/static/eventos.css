@@ -1,5 +1,5 @@
 body {
-    background-color: #f2f2f2;
+    background: linear-gradient(to bottom right, #0c090cee, #08ccc2);
     font-family: Arial, sans-serif;
 }
 
@@ -11,7 +11,7 @@ body {
 }
 
 h1 {
-    color: #333333;
+    color: #f1e8e8;
 }
 
 form label {
@@ -35,7 +35,7 @@ form textarea {
 
 button[type="submit"] {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #09e099;
     color: white;
     border: none;
     border-radius: 5px;

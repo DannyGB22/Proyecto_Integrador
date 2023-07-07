@@ -9,26 +9,33 @@
     <div>
         <section class="profile-section">
             <h2>Mi Perfil</h2>
-            <form action="{{ url_for('perfil') }}" method="POST">
+            <form action="{{ url_for('registroPerfilf') }}" method="POST">
                 <label for="institution">Institución:</label>
-                <input type="text" id="institution" name="institution" placeholder="Ingrese su institución">
+                <input type="text" id="institution" name="institution" placeholder="Ingrese su institución" required>
 
                 <label for="major">Carrera:</label>
-                <input type="text" id="major" name="major" placeholder="Ingrese su carrera">
+                <input type="text" id="major" name="major" placeholder="Ingrese su carrera" required>
 
                 <label for="semester">Cuatrimestre:</label>
-                <input type="text" id="semester" name="semester" placeholder="Ingrese su cuatrimestre">
+                <input type="text" id="semester" name="semester" placeholder="Ingrese su cuatrimestre" required>
                 
                 <label for="photo" class="photo-label">Foto</label>
-                <input type="file" id="photo" name="photo" class="photo-input" accept="image/*" onchange="updateFileName(this)">
+                <input type="file" id="photo" name="photo" class="photo-input" accept="image/*" onchange="updateFileName(this)" required>
                 <p id="file-name" class="file-name">Ninguna imagen seleccionada</p>
 
 
-
-                <button type="submit">Guardar</button>
+             <button type="submit">Guardar</button>
             </form>
         </section>
     </div>
-    
+    <center>
+    {%with mensajes= get_flashed_messages() %}
+  {% if mensajes%}
+    {%for msj in mensajes%}
+      <h3>{{ msj }}</h3>
+  {%endfor%}
+ {% endif %}
+{%endwith%}
+</center>
 </body>
 </html>

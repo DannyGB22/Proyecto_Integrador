@@ -10,16 +10,23 @@
     <h1>Bienvenido</h1>
     <form action="{{url_for ('login')}}" method="POST">
     
-      <input type="email" id="correo" name="email" placeholder="Correo Electronico">
+      <input type="email" id="correo" name="email" placeholder="Correo Electronico" required>
 
-      <input type="password" id="password" name="password" placeholder="Contraseña">
+      <input type="password" id="password" name="password" placeholder="Contraseña" required>
     <div class="button">
       
       <button type="submit">Iniciar sesión</button>
 
-      <button type="button" onclick="window.location.href='{{url_for('register')}}'">Registrarse</button>
+      <button type="button" onclick="window.location.href='{{url_for('registerf')}}'">Registrarse</button>
     </div>
     </form>
   </div>
+  {%with mensajes= get_flashed_messages() %}
+  {% if mensajes%}
+    {%for msj in mensajes%}
+      <h3>{{ msj }}</h3>
+  {%endfor%}
+ {% endif %}
+{%endwith%}
 </body>
 </html>

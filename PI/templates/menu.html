@@ -67,6 +67,7 @@
               <th>Fecha</th>
               <th>Hora</th>
               <th>Descripcion</th>
+              <th>Ubicacion</th>
               <th>Eliminar</th>
               <th>Actualizar</th>
             </tr>
@@ -79,6 +80,7 @@
               <td>23-06-2024</td>
               <td>01:00 p.m</td>
               <td>Llevar globos con agua, formularios, ropa etc.</td>
+              <td>Universidad Politecnica de Qro.</td>
               <td><button id="Eliminar", onclick="eliminarRegistro(1)">Eliminar</button></td>
               <td><button id="Actualizar", onclick="actualizarRegistro(1)">Actualizar</button></td>
             
@@ -87,6 +89,14 @@
         </table>
       </div>
 
-
+      <center>
+        {%with mensajes= get_flashed_messages() %}
+        {% if mensajes%}
+          {%for msj in mensajes%}
+            <h3>{{ msj }}</h3>
+        {%endfor%}
+       {% endif %}
+      {%endwith%}
+    </center>
 </body>
 </html>

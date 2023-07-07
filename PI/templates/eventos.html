@@ -8,24 +8,33 @@
 <body>
     <div class="container">
         <h1>Creación de Eventos</h1>
-        <form>
+        <form action="{{ url_for('eventof') }}" method="POST">
             <label for="title">Título del Evento:</label>
-            <input type="text" id="title" name="title" placeholder="Ingrese el título del evento">
+            <input type="text" id="title" name="title" placeholder="Ingrese el título del evento" required>
 
             <label for="date">Fecha:</label>
-            <input type="date" id="date" name="date">
+            <input type="date" id="date" name="date" required>
 
             <label for="time">Hora:</label>
-            <input type="time" id="time" name="time">
+            <input type="time" id="time" name="time" required>
 
             <label for="location">Ubicación:</label>
-            <input type="text" id="location" name="location" placeholder="Ingrese la ubicación del evento">
+            <input type="text" id="location" name="location" placeholder="Ingrese la ubicación del evento" required>
 
             <label for="description">Descripción:</label>
-            <textarea id="description" name="description" placeholder="Ingrese una descripción o notas relacionadas con el evento"></textarea>
+            <textarea id="description" name="description" placeholder="Ingrese una descripción o notas relacionadas con el evento" required></textarea>
 
             <button type="submit">Crear Evento</button>
         </form>
     </div>
+    <center>
+    {%with mensajes= get_flashed_messages() %}
+    {% if mensajes%}
+      {%for msj in mensajes%}
+        <h3>{{ msj }}</h3>
+    {%endfor%}
+   {% endif %}
+  {%endwith%}
+</center>
 </body>
 </html>
