@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Administración de Tareas</title>
+    <title>Tareas</title>
     <link rel="stylesheet" type="text/css" href="../static/ADMTask.css">
 </head>
 <body>
     <div class="container">
-        <h1>Administración de Tareas</h1>
+        <h1>Crear una nueva Tarea</h1>
         <form action="{{ url_for('registroTareaf') }}" method="POST">
             <input type="text" name="titulo" placeholder="Título de la Tarea" required>
             <input type="text" name="materia" placeholder="Materia" required>
@@ -18,8 +18,6 @@
             <label for="fecha">Fecha Fin</label>
             <input type="date" name="fechaFin" placeholder="Fecha de Fin" required>
 
-            <input type="text" name="prioridad" placeholder="Prioridad" required>
-            <textarea name="descripcion" placeholder="Descripción" required></textarea>
             <button type="submit">Agregar Tarea</button>
         </form>
     </div>

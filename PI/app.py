@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for,flash, session
 from flask_mysqldb import MySQL
+from MySQLdb import IntegrityError
+from functools import wraps
 
 #Estamos declarando el app y le estamos asignando un nombre
 # Inicializacion del servidor flask
@@ -15,13 +17,26 @@ app.secret_key= 'mysecretkey'
 mysql = MySQL(app)
 
 
+
+
 @app.route('/')
 def index():
     return render_template('Login.html')
 
-@app.route('/menu')
-def menu():
-    return render_template('menu.html')
+
+# Función para verificar si el usuario ha iniciado sesión
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Verificar si el correo electrónico está almacenado en la sesión
+        if 'correo_usuario' not in session:
+            # Redirigir al inicio de sesión si no ha iniciado sesión
+            flash('Debe iniciar sesión para acceder a esta página.')
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -42,6 +57,11 @@ def login():
 
 
 
+@app.route('/menu')
+@login_required
+def menu():
+    return render_template('menu.html')
+
 @app.route('/register')
 def registerf():
     return render_template('RegistroUsu.html')
@@ -52,19 +72,26 @@ def registroUsuariof():
         vnombre= request.form['nombre']
         vemail= request.form['email']
         vpass= request.form['password']
-        # vcpass= request.form['comfirm-password']
         
         CS= mysql.connection.cursor()
-        CS.execute('insert into usuarios(Nombre, Correo_Electronico, Contraseña) values(%s, %s, %s)',(vnombre, vemail, vpass))
-        mysql.connection.commit()
-         # Almacenar los datos en la sesión
-        session['correo_usuario'] = vemail
-    flash('Usuario agregado Correctamente')    
-    return redirect(url_for('index'))
+        try:
+            CS.execute('insert into usuarios(Nombre, Correo_Electronico, Contraseña) values(%s, %s, %s)',(vnombre, vemail, vpass))
+            mysql.connection.commit()
+            # Almacenar los datos en la sesión
+            session['correo_usuario'] = vemail
+            flash('Usuario agregado Correctamente')
+        except IntegrityError as e:
+            if e.args[0] == 1062:
+                flash('El correo electrónico ya existe')
+            else:
+                flash('Ocurrió un error al agregar el usuario')
+        return redirect(url_for('registerf'))
+    
+    
     
 
-
 @app.route('/perfil')
+@login_required
 def perfilf():
     return render_template('perfil.html')
 
@@ -94,6 +121,7 @@ def registroPerfilf():
     
 
 @app.route("/eventos")
+@login_required
 def creacion_eventos():
     return render_template("eventos.html")
 
@@ -124,6 +152,7 @@ def eventof():
     
 
 @app.route("/tareas")
+@login_required
 def administracion_tareas():
     return render_template("tareas.html")
 
@@ -136,7 +165,7 @@ def registroTareaf():
         vfechaInicio = request.form['fechaInicio']
         vfechaFin = request.form['fechaFin']
         vdescripcion = request.form['descripcion']
-        vprioridad = request.form['prioridad']
+        # vprioridad = request.form['prioridad']
         
         
         CS = mysql.connection.cursor()
@@ -153,22 +182,57 @@ def registroTareaf():
     flash('Tarea agregada correctamente')    
     return redirect(url_for('menu'))
 
-    
 
 @app.route("/consultaTareas")
+@login_required
 def consulta_Task():
     return render_template("consultaTask.html")
 
-@app.route("/cerrar")
-def cerrar_sesion():
-    return render_template("Login.html")
+@app.route('/buscar', methods=['POST'])
+def buscartr():
+    if request.method == 'POST':
+        fechaE = request.form['fecha']
 
-@app.route("/progreso")
-def Progreso():
-    return render_template("progreso.html")
+        cursor = mysql.connection.cursor()
+        
+        # Obtener el ID del usuario registrado
+        correo_usuario = session['correo_usuario']
+        cursor.execute('SELECT ID_Usuario FROM usuarios WHERE Correo_Electronico = %s', (correo_usuario,))
+        id_usuario = cursor.fetchone()[0]
+        
+        cursor.execute('SELECT * FROM tareas WHERE Fecha_Fin = %s AND ID_Usuario = %s', (fechaE, id_usuario,))
+        consulta = cursor.fetchall()
+
+        if consulta:
+            return render_template('ConsultaTask.html', fechas = consulta)
+        else:
+            flash('No se encontraron tareas con esa Fecha.')
+
+    return render_template('consultaTask.html')
     
+   
+@app.route("/progreso")
+@login_required
+def Progreso():
+    return render_template("progreso.html") 
+   
+    
+# @app.route("/cerrar")
+# def cerrar_sesion():
+#     return render_template("Login.html")
+
+@app.route('/cerrar')
+def logout():
+    # Eliminar el correo electrónico del usuario de la sesión
+    session.pop('correo_usuario', None)
+    # Redirigir al usuario a la página de inicio de sesión
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(port=3000, debug=True)
+    
+    
+    
     
     

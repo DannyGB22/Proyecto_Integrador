@@ -2,29 +2,62 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Consulta de Tareas</title>
+  <title>Consultar Tareas</title>
   <link rel="stylesheet" type="text/css" href="../static/consutaTask.css">
 </head>
 <body>
+  <center>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    </center>
+
   <div class="container">
     <h1>Consulta de Tareas</h1>
-    <form>
-      <label for="fecha">Fecha:</label>
-      <input type="date" id="fecha" name="fecha">
-
-      <label for="categoria">Categoría:</label>
-      <select id="categoria" name="categoria">
-        <option value="">--Seleccione una categoría--</option>
-        <option value="trabajo">Trabajo</option>
-        <option value="personal">Personal</option>
-        <option value="estudio">Estudio</option>
-      </select>
+    <form method="POST" action="{{ url_for('buscartr') }}">
+      <label for="fecha">Fecha De Entrega:</label>
+      <input type="date" id="fecha" name="fecha" required>
 
       <button type="submit">Buscar</button>
     </form>
 
     <div id="resultado">
-      <!-- Aquí se mostrarán los resultados de la consulta -->
+
+      {% if fechas %}
+      <center><h3>Resultados:</h3></center>
+      <table>
+          <tr>
+              <th>ID</th>
+              <th>Titulo</th>
+              <th>Materia</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Entrega</th>
+              <th>Descripcion</th>
+              
+            
+              
+          </tr>
+          {% for fecha in fechas %}
+              <tr>
+                  <td>{{ fecha[0] }}</td>
+                  <td>{{ fecha[1] }}</td>
+                  <td>{{ fecha[2] }}</td>
+                  <td>{{ fecha[3] }}</td>
+                  <td>{{ fecha[4] }}</td>
+                  <td>{{ fecha[5] }}</td>
+                  
+                
+              </tr>
+          {% endfor %}
+      </table>
+  {% endif %}
+
     </div>
   </div>
 </body>
