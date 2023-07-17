@@ -10,7 +10,7 @@ app = Flask(__name__,static_folder='static', template_folder='templates')
 # Configuraciones para la conexion con la BD
 app.config['MYSQL_HOST']= "localhost"
 app.config['MYSQL_USER']= "root"
-app.config['MYSQL_PASSWORD']= "danny22"
+app.config['MYSQL_PASSWORD']= "pass"
 app.config['MYSQL_DB']= "agendabd"
 
 app.secret_key= 'mysecretkey'
@@ -47,8 +47,15 @@ def login():
     CS.execute(consulta, (VEmail, VPassword))
     resultado = CS.fetchone()
     if resultado is not None:
-        # Almacenar el correo electrónico en la sesión
+        # Almacenar el correo electrónion
         session['correo_usuario'] = VEmail
+        
+        # Obtener el nombre del usuario desde la base de datos
+        CS.execute('select Nombre from usuarios where Correo_Electronico = %s', (VEmail,))
+        nombre_usuario = CS.fetchone()[0]
+        # Almacenar el nombre del usuario en la sesión
+        session['nombre_usuario'] = nombre_usuario
+
         return render_template('menu.html')
     else:
         flash('Correo o contraseña incorrectos')
