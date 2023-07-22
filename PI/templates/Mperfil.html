@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perfil</title>
+    <link rel="stylesheet" type="text/css" href="../static/Vperfil.css">
+</head>
+<body>
+    <div class="container">
+        {% if perfil %}
+            <div class="profile-image">
+                {% if perfil[5] %}
+                    <img src="{{ url_for('static', filename=perfil[5]) }}" alt="Foto de perfil">
+                {% else %}
+                    <img src="{{ url_for('static', filename='default_profile.png') }}" alt="Foto de perfil predeterminada">
+                {% endif %}
+            </div>
+            <div class="profile-details">
+                <h1>Mi Perfil</h1>
+                <p><strong>Nombre:</strong> {{ perfil[0] }}</p>
+                <p><strong>Correo Electrónico:</strong> {{ perfil[1] }}</p>
+                <p><strong>Institución:</strong> {{ perfil[2] }}</p>
+                <p><strong>Carrera:</strong> {{ perfil[3] }}</p>
+                <p><strong>Cuatrimestre:</strong> {{ perfil[4] }}</p>
+            </div>
+        {% else %}
+            <div class="no-profile">
+                <h1>Perfil no registrado</h1>
+                <p>No tienes datos de perfil registrados.</p>
+                <a href="{{ url_for('Rperfilf') }}">Registrar perfil</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <center>
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            <div class="flash-messages">
+                {% for msj in mensajes %}
+                    <h3>{{ msj }}</h3>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+ </center>
+</body>
+</html>

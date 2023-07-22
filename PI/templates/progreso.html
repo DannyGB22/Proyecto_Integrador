@@ -6,33 +6,25 @@
 </head>
 <body>
     <h1>SEGUIMIENTO DE PROGRESO</h1>
-    
+
     <h2>Tareas Pendientes</h2>
     <ul id="task-list">
-        <li class="task">
-            <input type="checkbox" id="task1">
-            <label for="task1">Tarea 1</label>
-        </li>
-        <li class="task">
-            <input type="checkbox" id="task2">
-            <label for="task2">Tarea 2</label>
-        </li>
-        <li class="task">
-            <input type="checkbox" id="task3">
-            <label for="task3">Tarea 3</label>
-        </li>
+        {% for tarea in tareas_pendientes %}
+            <li class="task">
+                <input type="checkbox" id="{{ 'task' ~ tarea[0] }}">
+                <label for="{{ 'task' ~ tarea[0] }}">{{ tarea[1] }}</label>
+            </li>
+        {% endfor %}
     </ul>
 
     <h2>Actividades Completadas</h2>
     <ul id="completed-list">
-        <li class="completed-task">
-            <input type="checkbox" id="completed1" checked disabled>
-            <label for="completed1">Tarea completada 1</label>
-        </li>
-        <li class="completed-task">
-            <input type="checkbox" id="completed2" checked disabled>
-            <label for="completed2">Tarea completada 2</label>
-        </li>
+        {% for tarea in tareas_completadas %}
+            <li class="completed-task">
+                <input type="checkbox" id="{{ 'completed' ~ tarea[0] }}" checked disabled>
+                <label for="{{ 'completed' ~ tarea[0] }}">{{ tarea[1] }}</label>
+            </li>
+        {% endfor %}
     </ul>
 </body>
 </html>

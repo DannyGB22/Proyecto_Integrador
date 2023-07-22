@@ -10,7 +10,8 @@ body{
     align-items: center;
     justify-content: center;
     height: 100vh;
-    /* background: linear-gradient(to bottom right, #1af1129f, #017a74, #e908d6b6); */
+    
+    /* background: linear-gradient(to bottom right, #1af1129f, #017a74, #e908d6b6);  */
 }
  
 .container {
@@ -64,7 +65,7 @@ input[type="password"]::placeholder {
 
 .button button[type="submit"] {
     padding: 10px 20px;
-    background-color: #03a086;
+    background-color: #09ad92;
     color: white;
     border: none;
     border-radius: 5px;
@@ -81,7 +82,7 @@ button[type="submit"]:hover {
 
 .button button[type="button"] {
     padding: 10px 20px;
-    background-color: #0f62cf;
+    background-color: #07eb1a;
     color: white;
     border: none;
     border-radius: 5px;

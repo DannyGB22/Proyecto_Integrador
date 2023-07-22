@@ -1,38 +1,67 @@
+
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f2f2f2;
-}
-
-h1, h2 {
-    text-align: center;
+    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
     color: #333;
-}
-
-.task-list, .completed-list {
-    list-style-type: none;
+    margin: 0;
     padding: 0;
 }
 
-.task, .completed-task {
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Estilos de las listas */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Estilos de las tareas */
+li.task,
+li.completed-task {
     margin-bottom: 10px;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
 }
 
-.task label, .completed-task label {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 10px;
+label {
+    cursor: pointer;
 }
 
+/* Estilos de los checkboxes */
 input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
+/* Estilos de las tareas completadas */
 .completed-task label {
     text-decoration: line-through;
-    color: #999;
+    color: #888;
+}
+
+/* Estilos de los checkboxes de tareas completadas */
+.completed-task input[type="checkbox"] {
+    cursor: not-allowed;
+}
+
+/* Estilos para el contenedor de las listas */
+#task-list,
+#completed-list {
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    max-width: 500px;
 }

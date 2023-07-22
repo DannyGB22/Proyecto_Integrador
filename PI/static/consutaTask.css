@@ -1,16 +1,17 @@
 /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #FF00FF, #FFA500)
+    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
   }
   
   .container {
     width: 800px;
     margin: 0 auto;
+    margin-top: 40px;
     padding: 35px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.274);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(17, 0, 90, 0.993);
   }
   
   h1 {
@@ -42,7 +43,7 @@ body {
   }
   
   button[type="submit"]:hover {
-    background-color: #a103d1;
+    background-color: #24b6fa;
   }
   
   table {
@@ -60,7 +61,7 @@ th, td {
 }
 
 th {
-    background-color: #046077;
+    background-color: #027969;
     color: #f2f2f2;
 }
 
@@ -72,3 +73,7 @@ th {
     border-radius: 4px;
   }
   
+h1{
+
+  color: #026958;
+}

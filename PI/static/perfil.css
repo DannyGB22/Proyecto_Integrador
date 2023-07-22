@@ -1,14 +1,18 @@
 body {
-    background-color: #f2f2f2;
+    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
     font-family: Arial, sans-serif;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgb(10, 6, 223);
     text-align: center;
 }
+
 
 h1 {
     color: #333333;
@@ -31,8 +35,9 @@ nav ul li a {
 
 section.profile-section {
     background-color: #ffffff;
-    padding: 20px;
-    margin-top: 20px;
+    padding: 40px;
+    margin-top: 40px;
+    max-width: 200;
 }
 
 section.profile-section h2 {
@@ -52,8 +57,9 @@ form input[type="text"] {
 }
 
 button[type="submit"] {
+    margin-top: 35px;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #036868;
     color: white;
     border: none;
     border-radius: 5px;
@@ -68,17 +74,12 @@ button[type="submit"] {
   
   .photo-input {
     display: block;
-    width: 200px;
+    width: 500px;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
     color: #333;
-  }
-  
-  .file-name {
-    color: #777;
-    margin-top: 5px;
   }
   
   

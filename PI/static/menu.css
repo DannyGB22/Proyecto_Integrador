@@ -1,16 +1,20 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #04045e; /* Color de fondo atractivo */
-    background: linear-gradient(to bottom right, #420142, #04fdfd);
+    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
     margin: 0;
     padding: 0;
     padding: 20px;
 }
 
+/* Importar la fuente Dancing Script desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 .menu {
-    background: linear-gradient(to bottom right, #FF00FF, #00FFFF, #FFA500);
+   
+    background: linear-gradient(to bottom right, #64dd17, #00e676, #c6ff00);
     padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.521); /* Sombra suave */
+ 
 }
 
 .container {
@@ -23,6 +27,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para los contenedores */
     max-height: 300px; /*Ajusta esta altura según tus necesidades */
     overflow: auto;
+
 }
 
 h2 {
@@ -33,7 +38,7 @@ h2 {
 
 /* Estilos para la barra de navegación */
 nav {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     padding: 10px 0;
     border-radius: 4px;
 }
@@ -59,7 +64,7 @@ a {
 
 a:hover {
     background-color: #000000;
-    color: #ccc;
+    color: #1dfa00;
 } 
 
 /* ----------------------------------------------------------- */
@@ -80,7 +85,7 @@ th, td {
 }
 
 th {
-    background-color: #04ff26d2;
+    background-color: #030099d2;
     color: #f2f2f2;
 }
 

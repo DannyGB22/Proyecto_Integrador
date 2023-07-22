@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,flash, session
+from flask import Flask, render_template, request, redirect, url_for,flash, session, jsonify
 from flask_mysqldb import MySQL
 from MySQLdb import IntegrityError
 from functools import wraps
@@ -12,6 +12,7 @@ app.config['MYSQL_HOST']= "localhost"
 app.config['MYSQL_USER']= "root"
 app.config['MYSQL_PASSWORD']= "danny22"
 app.config['MYSQL_DB']= "agendabd"
+
 
 app.secret_key= 'mysecretkey'
 mysql = MySQL(app)
@@ -49,7 +50,7 @@ def login():
     if resultado is not None:
         # Almacenar el correo electrónico en la sesión
         session['correo_usuario'] = VEmail
-        return render_template('menu.html')
+        return redirect(url_for('menu'))
     else:
         flash('Correo o contraseña incorrectos')
         return redirect(url_for('index'))
@@ -93,6 +94,30 @@ def registroUsuariof():
 @app.route('/perfil')
 @login_required
 def perfilf():
+    CS = mysql.connection.cursor()
+
+    # Obtener el ID del usuario registrado
+    correo_usuario = session['correo_usuario']
+    CS.execute('SELECT ID_Usuario FROM usuarios WHERE Correo_Electronico = %s', (correo_usuario,))
+    id_usuario = CS.fetchone()[0]
+
+    # Obtener el perfil del usuario correspondiente
+    CS.execute('SELECT Nombre, Correo_Electronico, Institucion, Carrera, Cuatrimestre, Foto FROM perfil p JOIN usuarios u ON p.ID_Usuario = u.ID_Usuario WHERE p.ID_Usuario = %s', (id_usuario,))
+    perfil = CS.fetchone()
+    # CS.execute('SELECT Institucion, Carrera, Cuatrimestre, Foto FROM perfil WHERE ID_Usuario = %s', (id_usuario,))
+    # perfil = CS.fetchone()
+
+    # Cerrar el cursor
+    CS.close()
+
+    if perfil:
+        # Si se encontró el perfil, pasar los datos a la plantilla
+        return render_template('Mperfil.html', perfil=perfil)
+    else:
+        return render_template('Mperfil.html')
+
+@app.route('/Rperfil')
+def Rperfilf():
     return render_template('perfil.html')
 
 
@@ -116,7 +141,7 @@ def registroPerfilf():
         
         mysql.connection.commit()
     flash('Perfil agregado correctamente')    
-    return redirect(url_for('menu'))
+    return redirect(url_for('perfilf'))
     
     
 
@@ -176,11 +201,11 @@ def registroTareaf():
         id_usuario = CS.fetchone()[0]
         
         # Insertar el perfil con el ID de usuario correspondiente
-        CS.execute('INSERT INTO tareas(Titulo_Tarea, Materia, Fecha_Inicio, Fecha_Fin, Descripcion, Prioridad, ID_Usuario) VALUES (%s, %s, %s, %s, %s,%s, %s)', (vtitulo, vmateria, vfechaInicio, vfechaFin, vdescripcion, vprioridad, id_usuario))
+        CS.execute('INSERT INTO tareas(Titulo_Tarea, Materia, Fecha_Inicio, Fecha_Fin, Descripcion, ID_Usuario) VALUES (%s, %s, %s, %s, %s,%s)', (vtitulo, vmateria, vfechaInicio, vfechaFin, vdescripcion, id_usuario))
         
         mysql.connection.commit()
     flash('Tarea agregada correctamente')    
-    return redirect(url_for('menu'))
+    return redirect(url_for('administracion_tareas'))
 
 
 @app.route("/consultaTareas")
@@ -210,11 +235,31 @@ def buscartr():
 
     return render_template('consultaTask.html')
     
-   
+
 @app.route("/progreso")
 @login_required
 def Progreso():
-    return render_template("progreso.html") 
+    CS = mysql.connection.cursor()
+
+    # Obtener el ID del usuario registrado
+    correo_usuario = session['correo_usuario']
+    CS.execute('SELECT ID_Usuario FROM usuarios WHERE Correo_Electronico = %s', (correo_usuario,))
+    id_usuario = CS.fetchone()[0]
+
+    # Obtener las tareas pendientes del usuario
+    CS.execute('SELECT * FROM tareas WHERE ID_Usuario = %s AND Estado = %s', (id_usuario, 'pendiente'))
+    tareas_pendientes = CS.fetchall()
+
+    # Obtener las tareas completadas del usuario
+    CS.execute('SELECT * FROM tareas WHERE ID_Usuario = %s AND Estado = %s', (id_usuario, 'completada'))
+    tareas_completadas = CS.fetchall()
+
+    CS.close()
+
+    return render_template('progreso.html', tareas_pendientes=tareas_pendientes, tareas_completadas=tareas_completadas)
+
+
+
    
     
 # @app.route("/cerrar")

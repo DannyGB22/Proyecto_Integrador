@@ -1,0 +1,44 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    
+}
+
+.profile-image img {
+    width: 150px;
+    height: 200px;
+    border-radius: 22%;
+    border: 3px solid #ffffffe8;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 400px;
+}
+
+.flash-messages {
+    margin-top: 20px;
+    color: #333;
+    background-color: #ffd700;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}

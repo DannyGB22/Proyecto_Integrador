@@ -6,8 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../static/perfil.css"
 </head>
 <body>
-    <div>
-        <section class="profile-section">
+    <div class="container">
             <h2>Mi Perfil</h2>
             <form action="{{ url_for('registroPerfilf') }}" method="POST">
                 <label for="institution">Institución:</label>
@@ -21,12 +20,12 @@
                 
                 <label for="photo" class="photo-label">Foto</label>
                 <input type="file" id="photo" name="photo" class="photo-input" accept="image/*" onchange="updateFileName(this)" required>
-                <p id="file-name" class="file-name">Ninguna imagen seleccionada</p>
+                
 
 
              <button type="submit">Guardar</button>
             </form>
-        </section>
+    
     </div>
     <center>
     {%with mensajes= get_flashed_messages() %}
