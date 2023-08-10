@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Evento</title>
+    <link rel="stylesheet" type="text/css" href="../static/eventos.css">
+</head>
+<body>
+{% include 'menu.html'%}
+
+<div class="container">
+    <div class="edit-event">
+        <h2>Editar Evento</h2>
+        <form method="POST">
+            <label for="nuevo_titulo">Título:</label>
+            <input type="text" id="nuevo_titulo" name="nuevo_titulo" value="{{ evento[1] }}" required>
+
+            <label for="nueva_fecha">Fecha:</label>
+            <input type="date" id="nueva_fecha" name="nueva_fecha" value="{{ evento[3] }}" required>
+
+            <label for="nueva_hora">Hora:</label>
+            <input type="time" id="nueva_hora" name="nueva_hora" value="{{ evento[4] }}" required>
+
+            <label for="nueva_ubicacion">Ubicación:</label>
+            <input type="text" id="nueva_ubicacion" name="nueva_ubicacion" value="{{ evento[5] }}" required>
+
+            <label for="nueva_descripcion">Descripción:</label>
+            <textarea id="nueva_descripcion" name="nueva_descripcion" required>{{ evento[2] }}</textarea>
+            
+            <button type="submit">Guardar los cambios</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 body {
-    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
+    /* background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d); */
     font-family: Arial, sans-serif;
+    
 }
 
 .container {
@@ -56,6 +57,13 @@ form input[type="text"] {
     border: 1px solid #ccc;
 }
 
+form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
 button[type="submit"] {
     margin-top: 35px;
     padding: 10px 20px;
@@ -67,8 +75,8 @@ button[type="submit"] {
 }
 
 .photo-label {
-    color: white;
-    font-weight: bold;
+    color: black;
+    /* font-weight: bold; */
     margin-bottom: 10px;
   }
   

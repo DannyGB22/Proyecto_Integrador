@@ -1,27 +1,36 @@
 
+
+.container{
+    color: white;
+    justify-content: space-between;
+    background-color: #00000091;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
-    color: #333;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-}
 
-h1 {
+/* h1 {
     text-align: center;
     margin-bottom: 30px;
 }
 
-h2 {
+.titulo{
+color: #011d38;
+
+}
+h3 {
+   
     margin-top: 40px;
     text-align: center;
-}
+} */
 
 /* Estilos de las listas */
 ul {
@@ -58,6 +67,7 @@ input[type="checkbox"] {
 /* Estilos para el contenedor de las listas */
 #task-list,
 #completed-list {
+    color: black;
     margin: 0 auto;
     border: 1px solid #ccc;
     padding: 10px;

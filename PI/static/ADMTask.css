@@ -1,24 +1,13 @@
-/* Resetear los estilos por defecto del navegador */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Estilos generales */
-body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
-  color: #000000;
-}
 
 .container {
   max-width: 500px;
   margin: 30px auto;
-  padding: 20px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgb(10, 6, 223);
+  box-sizing: border-box;
+  padding: 20px 45px;
+ 
 }
 
 h1 {
@@ -28,10 +17,6 @@ h1 {
   color: #035757;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
 
 input[type="text"],
 textarea,
@@ -54,11 +39,12 @@ textarea {
 
 label {
   font-size: 14px;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-bottom: 5px;
 }
 
 button[type="submit"] {
+
   background-color: #027579;
   color: #fff;
   padding: 10px 20px;

@@ -5,19 +5,23 @@
     <link rel="stylesheet" type="text/css" href="../static/progreso.css">
 </head>
 <body>
-    <h1>SEGUIMIENTO DE PROGRESO</h1>
+    {% include 'menu.html'%}
+<div class="container">
+    <h2 class="titulo">Seguimiento de Progreso</h2>
 
-    <h2>Tareas Pendientes</h2>
+    <h3>Tareas Pendientes</h3>
     <ul id="task-list">
         {% for tarea in tareas_pendientes %}
             <li class="task">
-                <input type="checkbox" id="{{ 'task' ~ tarea[0] }}">
-                <label for="{{ 'task' ~ tarea[0] }}">{{ tarea[1] }}</label>
+                <form method="post" action="{{ url_for('marcar_completada', tarea_id=tarea[0]) }}">
+                    <input type="checkbox" id="{{ 'task' ~ tarea[0] }}" onchange="this.form.submit()">
+                    <label for="{{ 'task' ~ tarea[0] }}">{{ tarea[1] }}</label>
+                </form>
             </li>
         {% endfor %}
     </ul>
 
-    <h2>Actividades Completadas</h2>
+        <h3>Actividades Completadas</h3>
     <ul id="completed-list">
         {% for tarea in tareas_completadas %}
             <li class="completed-task">
@@ -26,5 +30,6 @@
             </li>
         {% endfor %}
     </ul>
+</div>
 </body>
 </html>

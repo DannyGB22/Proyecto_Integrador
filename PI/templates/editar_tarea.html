@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Tarea</title>
+    <link rel="stylesheet" type="text/css" href="../static/actualizar.css">
+</head>
+<body>
+{% include 'menu.html'%}
+
+<div class="container">
+  <h2>Editar Tarea</h2>
+  <form method="POST" action="">
+    <label for="nuevo_titulo">Título:</label>
+    <input type="text" name="nuevo_titulo" value="{{ tarea[1] }}">
+    
+    <label for="nueva_materia">Materia:</label>
+    <input type="text" name="nueva_materia" value="{{ tarea[2] }}">
+    
+    <label for="nueva_fecha_inicio">Fecha de Inicio:</label>
+    <input type="date" name="nueva_fecha_inicio" value="{{ tarea[3] }}">
+    
+    <label for="nueva_fecha_fin">Fecha de Fin:</label>
+    <input type="date" name="nueva_fecha_fin" value="{{ tarea[4] }}">
+    
+    <label for="nueva_descripcion">Descripción:</label>
+    <textarea name="nueva_descripcion">{{ tarea[5] }}</textarea>
+    
+    <button type="submit">Actualizar Tarea</button>
+  </form>
+</div>
+
+         
+</body>
+</html>

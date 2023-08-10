@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Menú</title>
+    
+    <link rel="stylesheet" type="text/css" href="../static/inicio.css">
+</head>
+<body>
+{% include 'menu.html'%}
+    
+<div class="container">
+  <div class="task">
+      <h2>Tareas</h2>
+      <div class="card-container">
+          {% for task in lisTask %}
+          <div class="card">
+              <h3>{{ task[1] }}</h3>
+              <p><strong>Materia:</strong> {{ task[2] }}</p>
+              <!-- <p><strong>Fecha de Inicio:</strong> {{ task.3 }}</p> -->
+              <p><strong>Fecha de entrega:</strong> {{ task[4] }}</p>
+              <!-- <p><strong>Descripción:</strong> {{ task.5 }}</p> -->
+              <p><strong>Estado:</strong> {{ task[7] }}</p>
+
+              <div class="card-actions">
+                  <a href="/editar/{{ task[0] }}"><i class="material-icons">edit_note</i></a>
+
+                  <a href="/eliminar/{{ task[0] }}"><i class="material-icons">delete</i></a>
+                  
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+  
+  <div class="events">
+      <h2>Eventos</h2>
+      <div class="card-container">
+          {% for evnt in listEvn %}
+          <div class="card">
+              <h3>{{ evnt.1 }}</h3>
+              <p><strong>Descripción:</strong> {{ evnt[2] }}</p>
+              <p><strong>Fecha:</strong> {{ evnt[3] }}</p>
+              <p><strong>Hora:</strong> {{ evnt[4] }}</p>
+              <p><strong>Ubicación:</strong> {{ evnt[5] }}</p>
+              <div class="card-actions">
+                  <a href="/editar_evento/{{ evnt[0] }}"><i class="material-icons">edit_note</i></a>
+                  <a href="/eliminar_evento/{{ evnt[0] }}"><i class="material-icons">delete</i></a>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+       
+{% with mensajes = get_flashed_messages(with_categories=True) %}
+{% if mensajes %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for category, message in mensajes %}
+                {% if category == 'error' %}
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Error',
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000
+                    });
+                {% else %}
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+{% endif %}
+{% endwith %}
+</body>
+</html>

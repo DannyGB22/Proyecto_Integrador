@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <title>Registro de Usuarios</title>
     <link rel="stylesheet" type="text/css" href="../static/estilosRegistro.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Registro de Usuarios</h1>
         <form action="/registroUsuario" method="POST">
             
-            <input type="text" class="pwd" name="nombre" placeholder="Nombre Completo" required>
+            <input type="text" class="pwd" name="nombre" placeholder="Nombre" required>
+
+            <input type="text" class="pwd" name="paterno" placeholder="Apellido Paterno" required>
+
+            <input type="text" class="pwd" name="materno" placeholder="Apellido Materno" required>
 
             <input type="email" class="pwd" name="email" placeholder="Correo Electronico"required>
 
@@ -19,18 +24,45 @@
      
             <!-- <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar Contraseña"> -->
 
+            <div>
             <input  type="submit" value="Registrarse" >
-            
+
+            <p><a href="{{ url_for('index') }}">Regresar al login</a></p>
+
+           </div>
         </form>
     </div>
-    <center>
-        {%with mensajes= get_flashed_messages() %}
-        {% if mensajes%}
-          {%for msj in mensajes%}
-            <h3>{{ msj }}</h3>
-        {%endfor%}
-       {% endif %}
-      {%endwith%}
-    </center>
+        {% with mensajes = get_flashed_messages(with_categories=True) %}
+    {% if mensajes %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                {% for category, message in mensajes %}
+                    {% if category == 'error' %}
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Error',
+                            text: "{{ message }}",
+                            showConfirmButton: true,
+                            timer: 5000
+                        });
+                    {% else %}
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: "{{ message }}",
+                            showConfirmButton: true,
+                            timer: 5000
+                        });
+                    {% endif %}
+                {% endfor %}
+            });
+        </script>
+    {% endif %}
+{% endwith %}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 </body>
 </html>

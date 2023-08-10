@@ -1,45 +1,36 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
+    text-align: center;
+    /* background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d); */
     margin: 0;
-    padding: 0;
     padding: 20px;
+    background-image: url('../static/images/fondo3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Importar la fuente Dancing Script desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 .menu {
-   
-    background: linear-gradient(to bottom right, #64dd17, #00e676, #c6ff00);
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.521); /* Sombra suave */
- 
+    
+    background-color:#00000088;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.521); 
 }
 
-.container {
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: #ffffff; /* Fondo blanco para los contenedores */
-    padding: 30px;
-    border-radius: 5px; /* Bordes redondeados para los contenedores */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para los contenedores */
-    max-height: 300px; /*Ajusta esta altura según tus necesidades */
-    overflow: auto;
+.menu h2{
 
-}
-
-h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
+margin-bottom: 5px;
+color: white;
 }
 
 /* Estilos para la barra de navegación */
 nav {
     background-color: #ffffff;
-    padding: 10px 0;
+    padding: 5px;
     border-radius: 4px;
 }
 
@@ -64,41 +55,8 @@ a {
 
 a:hover {
     background-color: #000000;
-    color: #1dfa00;
+    color: #dfe7de;
 } 
 
 /* ----------------------------------------------------------- */
-
-/* Estilos para las tablas */
-table {
-    
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-   
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #000000bb;
-    
-}
-
-th {
-    background-color: #030099d2;
-    color: #f2f2f2;
-}
-
-td button {
-    padding: 5px 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-td button:hover {
-    background-color: #000000;
-}
 

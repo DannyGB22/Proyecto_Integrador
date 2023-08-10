@@ -9,15 +9,17 @@ body{
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(to bottom right, #FFC300, #FF5733, #C70039);
+    /* background: linear-gradient(to bottom right, #07dfa9, #02b620, #4b9274); */
+    background-image: url('../static/images/fondo3.jpg');
 }
  
 .container {
+    
     width: 400px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 22px;
-    background-color: #00000028;
+    background-color: #00000094;
 }
     
 
@@ -45,12 +47,13 @@ input[type="password"] {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #ccc;
+    color: #fff;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-    border-bottom: 2px solid #08f708c7;
+    border-bottom: 2px solid #0994e4c7;
     outline: none;
 }
 
@@ -67,9 +70,23 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 input[type="submit"]:hover {
     background-color: #0f62cf;
+
 }
+
+a {
+    /* display: block;*/
+    padding:10px  5px;
+    text-decoration: none;
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+a:hover {
+    background-color: #40eb0c;
+    color: #dfe7de;
+} 

@@ -1,10 +1,8 @@
 
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(135deg, #80ffdb, #b2ffab, #94d82d);
     margin: 0;
     padding: 0;
+    
 }
 
 .container {
@@ -33,12 +31,16 @@ body {
     width: 400px;
 }
 
-.flash-messages {
-    margin-top: 20px;
-    color: #333;
-    background-color: #ffd700;
-    padding: 10px;
-    border-radius: 5px;
-    width: 300px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+.no-profile{
+
+    color: white;
+    justify-content: space-between;
+    background-color: #00000091;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
 }

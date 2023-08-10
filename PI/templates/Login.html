@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" type="text/css" href="../static/estilosLogin.css">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container">
@@ -21,12 +22,38 @@
     </div>
     </form>
   </div>
-  {%with mensajes= get_flashed_messages() %}
-  {% if mensajes%}
-    {%for msj in mensajes%}
-      <h3>{{ msj }}</h3>
-  {%endfor%}
- {% endif %}
-{%endwith%}
+
+  {% with mensajes = get_flashed_messages(with_categories=True) %}
+    {% if mensajes %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                {% for category, message in mensajes %}
+                    {% if category == 'success' %}
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Exito',
+                            text: "{{ message }}",
+                            showConfirmButton: true,
+                            timer: 5000
+                        });
+                    {% else %}
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Error',
+                            text: "{{ message }}",
+                            showConfirmButton: true,
+                            timer: 5000
+                        });
+                    {% endif %}
+                {% endfor %}
+            });
+        </script>
+    {% endif %}
+{% endwith %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../static/eventos.css">
 </head>
 <body>
+    {% include 'menu.html'%}
     <div class="container">
         <h1>Creación de Eventos</h1>
         <form action="{{ url_for('eventof') }}" method="POST">
@@ -27,14 +28,34 @@
             <button type="submit">Crear Evento</button>
         </form>
     </div>
-    <center>
-    {%with mensajes= get_flashed_messages() %}
-    {% if mensajes%}
-      {%for msj in mensajes%}
-        <h3>{{ msj }}</h3>
-    {%endfor%}
-   {% endif %}
-  {%endwith%}
-</center>
+
+    {% with mensajes = get_flashed_messages(with_categories=True) %}
+            {% if mensajes %}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        {% for category, message in mensajes %}
+                            {% if category == 'error' %}
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    text: "{{ message }}",
+                                    showConfirmButton: true,
+                                    timer: 5000
+                                });
+                            {% else %}
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    text: "{{ message }}",
+                                    showConfirmButton: true,
+                                    timer: 5000
+                                });
+                            {% endif %}
+                        {% endfor %}
+                    });
+                </script>
+            {% endif %}
+        {% endwith %}
+
 </body>
 </html>

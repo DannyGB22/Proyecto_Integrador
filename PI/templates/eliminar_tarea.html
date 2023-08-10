@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Tarea</title>
+    <link rel="stylesheet" href="../static/eliminar.css">
+</head>
+<body>
+{% include 'menu.html'%}
+
+<div class="container">
+    <div class="delete-task">
+        <h2>Eliminar Tarea</h2>
+        <p class="confirmation-message">¿Estás seguro de que deseas eliminar la siguiente tarea?</p>
+        <div class="task-details">
+            <p><strong>Título:</strong> {{ tarea[1] }}</p>
+            <p><strong>Materia:</strong> {{ tarea[2] }}</p>
+            <p><strong>Fecha de Inicio:</strong> {{ tarea[3] }}</p>
+            <p><strong>Fecha de entrega:</strong> {{ tarea[4] }}</p>
+            <p><strong>Descripción:</strong> {{ tarea[5] }}</p>
+        </div>
+        <form method="POST">
+            <input type="submit" class="delete-button" value="Confirmar Eliminación">
+        </form>
+        <a class="cancel-link" href="{{ url_for('inicio') }}">Cancelar</a>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Tarea</title>
+    <link rel="stylesheet" type="text/css" href="../static/eliminar.css">
+</head>
+<body>
+{% include 'menu.html'%}
+
+<div class="container">
+  <h2>Eliminar Tarea</h2>
+  <p>¿Estás seguro de que deseas eliminar la siguiente tarea?</p>
+  <p><strong>Título:</strong> {{ tarea[1] }}</p>
+  <p><strong>Materia:</strong> {{ tarea[2] }}</p>
+  <p><strong>Fecha de entrega:</strong> {{ tarea[4] }}</p>
+  <p><strong>Descripción:</strong> {{ tarea[5] }}</p>
+  
+  <form method="POST" action="">
+    <button type="submit">Confirmar Eliminación</button>
+  </form>
+
+  <p><a href="{{ url_for('inicio') }}">Cancelar</a></p>
+</div>
+      
+</body>
+</html> -->

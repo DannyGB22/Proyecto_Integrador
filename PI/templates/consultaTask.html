@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="../static/consutaTask.css">
 </head>
 <body>
-  
+  {% include 'menu.html'%}
 
   <div class="container">
     <h1>Consulta de Tareas</h1>
@@ -23,24 +23,26 @@
       <center><h3>Resultados:</h3></center>
       <table>
           <tr>
-              <th>ID</th>
+              <!-- <th>ID</th> -->
               <th>Titulo</th>
               <th>Materia</th>
               <th>Fecha de Inicio</th>
               <th>Fecha de Entrega</th>
               <th>Descripcion</th>
+              <th>Estado</th>
               
             
               
           </tr>
           {% for fecha in fechas %}
               <tr>
-                  <td>{{ fecha[0] }}</td>
+                  <!-- <td>{{ fecha[0] }}</td> -->
                   <td>{{ fecha[1] }}</td>
                   <td>{{ fecha[2] }}</td>
                   <td>{{ fecha[3] }}</td>
                   <td>{{ fecha[4] }}</td>
                   <td>{{ fecha[5] }}</td>
+                  <td>{{ fecha[7] }}</td>
                   
                 
               </tr>
@@ -48,19 +50,37 @@
       </table>
   {% endif %}
 
-  <center>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flash-messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    </center>
 
     </div>
   </div>
+  {% with mensajes = get_flashed_messages(with_categories=True) %}
+  {% if mensajes %}
+      <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              {% for category, message in mensajes %}
+                  {% if category == 'success' %}
+                      Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Exito',
+                          text: "{{ message }}",
+                          showConfirmButton: true,
+                          timer: 5000
+                      });
+                  {% else %}
+                      Swal.fire({
+                          position: 'center',
+                          icon: 'error',
+                          title: 'Error',
+                          text: "{{ message }}",
+                          showConfirmButton: true,
+                          timer: 5000
+                      });
+                  {% endif %}
+              {% endfor %}
+          });
+      </script>
+  {% endif %}
+{% endwith %}
 </body>
 </html>

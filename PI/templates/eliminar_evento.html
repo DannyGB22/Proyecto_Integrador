@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Evento</title>
+    <link rel="stylesheet" type="text/css" href="../static/eliminar_evento.css">
+</head>
+<body>
+{% include 'menu.html'%}
+
+<div class="container">
+    <div class="delete-event">
+        <h2>Eliminar Evento</h2>
+        <p class="confirmation-message">¿Estás seguro de que deseas eliminar el siguiente evento?</p>
+        <div class="event-details">
+            <p><strong>Título:</strong> {{ evento[1] }}</p>
+            <p><strong>Descripción:</strong> {{ evento[2] }}</p>
+            <p><strong>Fecha:</strong> {{ evento[3] }}</p>
+            <p><strong>Hora:</strong> {{ evento[4] }}</p>
+            <p><strong>Ubicación:</strong> {{ evento[5] }}</p>
+        </div>
+        <form method="POST">
+            <input type="submit" class="delete-button" value="Confirmar Eliminación">
+        </form>
+
+        <p><a href="{{ url_for('inicio') }}">Cancelar</a></p>
+    </div>
+</div>
+
+</body>
+</html>

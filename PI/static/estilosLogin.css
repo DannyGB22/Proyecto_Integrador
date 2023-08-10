@@ -1,7 +1,5 @@
 
 body{
-
-    background-image: url("images/fondo2.jpeg");
     display: flex;
     flex-direction: column;
     background-size: cover;
@@ -10,7 +8,7 @@ body{
     align-items: center;
     justify-content: center;
     height: 100vh;
-    
+    background-image: url("images/fondo2.jpeg");
     /* background: linear-gradient(to bottom right, #1af1129f, #017a74, #e908d6b6);  */
 }
  
