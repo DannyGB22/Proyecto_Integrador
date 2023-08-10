@@ -1,6 +1,6 @@
 
 
-.container{
+.container {
     color: white;
     justify-content: space-between;
     background-color: #00000091;
@@ -11,6 +11,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -54,14 +55,35 @@ input[type="checkbox"] {
 }
 
 /* Estilos de las tareas completadas */
-.completed-task label {
-    text-decoration: line-through;
-    color: #888;
+.completed-task {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
 }
+
+.completed-task:hover {
+    background-color: #f0f0f0;
+}
+
 
 /* Estilos de los checkboxes de tareas completadas */
 .completed-task input[type="checkbox"] {
     cursor: not-allowed;
+}
+
+.task-title {
+    margin: 0;
+}
+
+.task-details {
+    display: none;
+    margin-top: 10px;
+}
+
+completed-task.active .task-details {
+    display: block;
 }
 
 /* Estilos para el contenedor de las listas */
@@ -74,4 +96,21 @@ input[type="checkbox"] {
     background-color: #fff;
     border-radius: 5px;
     max-width: 500px;
+}
+
+/* Estilos para los detalles */
+details {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/* Estilos para el contenido de los detalles */
+details p {
+    margin: 0;
+    padding: 5px 10px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
 }

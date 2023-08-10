@@ -3,33 +3,47 @@
 <head>
     <title>Seguimiento de Progreso</title>
     <link rel="stylesheet" type="text/css" href="../static/progreso.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     {% include 'menu.html'%}
-<div class="container">
-    <h2 class="titulo">Seguimiento de Progreso</h2>
-
-    <h3>Tareas Pendientes</h3>
-    <ul id="task-list">
-        {% for tarea in tareas_pendientes %}
-            <li class="task">
-                <form method="post" action="{{ url_for('marcar_completada', tarea_id=tarea[0]) }}">
-                    <input type="checkbox" id="{{ 'task' ~ tarea[0] }}" onchange="this.form.submit()">
-                    <label for="{{ 'task' ~ tarea[0] }}">{{ tarea[1] }}</label>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-
+    <div class="container">
+        <h2 class="titulo">Seguimiento de Progreso</h2>
         <h3>Actividades Completadas</h3>
-    <ul id="completed-list">
-        {% for tarea in tareas_completadas %}
+        <ul id="completed-list">
+            {% for tarea in tareas_completadas %}
             <li class="completed-task">
-                <input type="checkbox" id="{{ 'completed' ~ tarea[0] }}" checked disabled>
-                <label for="{{ 'completed' ~ tarea[0] }}">{{ tarea[1] }}</label>
+                <details>
+                    <summary>{{ tarea[1] }}</summary>
+                    <p><strong>Fecha de Inicio:</strong> {{ tarea[3] }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ tarea[4] }}</p>
+                    <p><strong>Descripción:</strong> {{ tarea[5] }}</p>
+                    <form method="post" action="{{ url_for('eliminar_tarea_backup', tarea_id=tarea[0]) }}">
+                        <button type="submit" class="delete-button">Eliminar Tarea</button>
+                    </form>
+                    
+                </details>
             </li>
-        {% endfor %}
-    </ul>
-</div>
+            {% endfor %}
+        </ul>
+        
+    </div>
+
+    <script>
+        function confirmDelete(tareaId) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción eliminará la tarea de la tabla de respaldo',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/eliminar_tarea_backup/" + tareaId;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

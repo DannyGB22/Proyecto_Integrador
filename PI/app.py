@@ -14,13 +14,14 @@ from decouple import Config, config, RepositoryEnv
 #Estamos declarando el app y le estamos asignando un nombre
 # Inicializacion del servidor flask
 
+
 app = Flask(__name__,static_folder='static', template_folder='templates')
 bcrypt = Bcrypt(app)
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 # Configuraciones para la conexion con la BD
 app.config['MYSQL_HOST']= "localhost"
 app.config['MYSQL_USER']= "root"
-app.config['MYSQL_PASSWORD']= "danny22"
+app.config['MYSQL_PASSWORD']= "pass1234"
 app.config['MYSQL_DB']= "agendabd"
 
 
@@ -28,17 +29,16 @@ app.secret_key= 'mysecretkey'
 mysql = MySQL(app)
 
 
-# Cargar variables de entorno desde el archivo .env
-config = Config(RepositoryEnv('.env'))
+# # Cargar variables de entorno desde el archivo .env
+# config = Config(RepositoryEnv('.env'))
 
-# Configuración para enviar correos electrónicos
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Servidor de correo saliente (SMTP)
-app.config['MAIL_PORT'] = 587  # Puerto del servidor SMTP
-app.config['MAIL_USE_TLS'] = True  # Usar TLS para cifrar la conexión
-app.config['MAIL_USERNAME'] = 'piplotupq@gmail.com'  #dirección de correo electrónico
-app.config['MAIL_PASSWORD'] = config('MAIL_PASSWORD')
-
-mail = Mail(app)
+# # Configuración para enviar correos electrónicos
+# app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Servidor de correo saliente (SMTP)
+# app.config['MAIL_PORT'] = 587  # Puerto del servidor SMTP
+# app.config['MAIL_USE_TLS'] = True  # Usar TLS para cifrar la conexión
+# app.config['MAIL_USERNAME'] = 'piplotupq@gmail.com'  #dirección de correo electrónico
+# app.config['MAIL_PASSWORD'] = 'klederkbvpewgbvi'
+# mail = Mail(app)
 
 def enviar_correo(destinatario, asunto, contenido):
     try:
@@ -519,17 +519,14 @@ def Progreso():
     CS.execute('SELECT ID_Usuario FROM usuarios WHERE Correo_Electronico = %s', (correo_usuario,))
     id_usuario = CS.fetchone()[0]
 
-    # Obtener las tareas pendientes del usuario
-    CS.execute('SELECT * FROM tareas WHERE ID_Usuario = %s AND Estado = %s', (id_usuario, 'pendiente'))
-    tareas_pendientes = CS.fetchall()
-
-    # Obtener las tareas completadas del usuario
-    CS.execute('SELECT * FROM tareas WHERE ID_Usuario = %s AND Estado = %s', (id_usuario, 'completada'))
+    # Obtener las tareas completadas del usuario desde la tabla de respaldo
+    CS.execute('SELECT * FROM tareas_backup WHERE ID_Usuario = %s', (id_usuario,))
     tareas_completadas = CS.fetchall()
 
     CS.close()
 
-    return render_template('progreso.html', tareas_pendientes=tareas_pendientes, tareas_completadas=tareas_completadas)
+    return render_template('progreso.html', tareas_completadas=tareas_completadas)
+
 
 
 @app.route("/marcar_completada/<int:tarea_id>", methods=["POST"])
@@ -537,14 +534,37 @@ def Progreso():
 def marcar_completada(tarea_id):
     CS = mysql.connection.cursor()
 
-    # Actualizar el estado de la tarea a 'completada'
-    CS.execute('UPDATE tareas SET Estado = %s WHERE ID_Tarea = %s', ('completada', tarea_id))
-    mysql.connection.commit()
+    # Obtener información de la tarea completada
+    CS.execute('SELECT ID_Tarea, Titulo_Tarea, Materia, Fecha_Inicio, Fecha_Fin, Descripcion, ID_Usuario FROM tareas WHERE ID_Tarea = %s', (tarea_id,))
+    tarea_completada = CS.fetchone()
 
+    if tarea_completada:
+        # Insertar tarea completada en la tabla tareas_backup
+        CS.execute('INSERT INTO tareas_backup (ID_Tarea, Titulo_Tarea, Materia, Fecha_Inicio, Fecha_Fin, Descripcion, ID_Usuario) VALUES (%s, %s, %s, %s, %s, %s, %s)', tarea_completada)
+        
+        # Eliminar la tarea completada de la tabla tareas
+        CS.execute('DELETE FROM tareas WHERE ID_Tarea = %s', (tarea_id,))
+        
+        mysql.connection.commit()
+        CS.close()
+        
+        return redirect(url_for('inicio'))
+    else:
+        flash("La tarea no pudo ser encontrada", "error")
+        return redirect(url_for('inicio'))
+
+@app.route("/eliminar_tarea_backup/<int:tarea_id>", methods=["POST"])
+@login_required
+def eliminar_tarea_backup(tarea_id):
+    CS = mysql.connection.cursor()
+
+    # Aquí ejecuta el código para eliminar la tarea de la tabla de respaldo
+    CS.execute('DELETE FROM tareas_backup WHERE ID_Tarea = %s', (tarea_id,))
+    
+    mysql.connection.commit()
     CS.close()
 
-    return redirect(url_for('Progreso'))
-
+    return redirect(url_for('progreso'))
 
 @app.route('/cerrar')
 def logout():
@@ -556,7 +576,7 @@ def logout():
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
-    
+
     
     
     

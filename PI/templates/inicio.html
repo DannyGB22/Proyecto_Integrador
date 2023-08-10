@@ -26,7 +26,9 @@
                   <a href="/editar/{{ task[0] }}"><i class="material-icons">edit_note</i></a>
 
                   <a href="/eliminar/{{ task[0] }}"><i class="material-icons">delete</i></a>
-                  
+                  <form method="post" action="{{ url_for('marcar_completada', tarea_id=task[0]) }}">
+                   <button type="submit"><i class="material-icons">check_circle</i></button>
+                  </form> 
               </div>
           </div>
           {% endfor %}
