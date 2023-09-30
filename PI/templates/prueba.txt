@@ -1,0 +1,187 @@
+<div class="task">
+          <h2>Tareas</h2>
+          <table id="Tareas">
+            <thead>
+              <tr>
+                <!-- <th>ID</th> -->
+                <th>Titulo tarea</th>
+                <th>materia</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de entrega</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <th>Ajustes</th>
+                <!-- <th>Actualizar</th> -->
+              </tr>
+            </thead>
+            <tbody id="registrosBody">
+              {%for task in lisTask %}
+              <tr>
+                  <!-- <td>{{task.0}}</td> -->
+                  <td>{{task.1}}</td>
+                  <td>{{task.2}}</td>
+                  <td>{{task.3}}</td>
+                  <td>{{task.4}}</td>
+                  <td>{{task.5}}</td>
+                  <td>{{task.7}}</td>
+                  <td>
+                  <a href="/editar/{{task.0}}">Editar</a>
+                  <a href="/eliminar/{{task.0}}">Eliminar</a>
+                  </td>
+              </tr>
+              {%endfor %}
+            </tbody>
+          </table>
+        </div>
+      
+        
+        <div class="events">
+          <h2>Eventos</h2>
+          <table id="eventos">
+            <thead>
+              <tr>
+                <!-- <th>ID</th> -->
+                <th>Titulo del evento</th>
+                <th>Descripcion</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Ubicacion</th>
+                <th>Actualizar</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody id="registrosBody">
+              {%for evnt in listEvn %}
+              <tr>
+                  <!-- <td>{{evnt.0}}</td> -->
+                  <td>{{evnt.1}}</td>
+                  <td>{{evnt.2}}</td>
+                  <td>{{evnt.3}}</td>
+                  <td>{{evnt.4}}</td>
+                  <td>{{evnt.5}}</td>
+                  <td>
+                  <a href="/editar/{{evnt.0}}">Editar</a>
+                  </td>
+                  <td>
+                    <a href="/eliminar/{{evnt.0}}">Eliminar</a>
+                    </td>
+              </tr>
+              {%endfor %}
+            </tbody>
+          </table>
+        </div>
+     </div>
+
+
+rutas para actualizar
+
+@app.route('/editar/<int:ID_Tarea>')
+def EditarT(ID_Tarea):
+    cursor = mysql.connection.cursor()
+    correo_usuario = session['correo_usuario']
+    cursor.execute('SELECT ID_Usuario FROM usuarios WHERE Correo_Electronico = %s', (correo_usuario,))
+    id_usuario = cursor.fetchone()[0]
+    
+    cursor.execute('SELECT * FROM tareas WHERE ID_Usuario = %s AND ID_Tarea = %s', (id_usuario, ID_Tarea))
+    consultaT = cursor.fetchall()
+    
+    return render_template('actualizarT.html', tarea = consultaT)
+
+@app.route('/actualizar/<ID_Tarea>', methods=['POST'])
+def Actualizar(ID_Tarea):
+    if request.method == 'POST':
+        vtitulo = request.form['titulo']
+        vmateria = request.form['materia']
+        vfechaInicio = request.form['fechaInicio']
+        vfechaFin = request.form['fechaFin']
+        vdescripcion = request.form['descripcion']
+        
+        CS = mysql.connection.cursor()
+        
+        # Obtener el ID del usuario registrado
+        correo_usuario = session['correo_usuario']
+        CS.execute('SELECT ID_Usuario FROM usuarios WHERE Correo_Electronico = %s', (correo_usuario,))
+        id_usuario = CS.fetchone()[0]
+        
+        # Actualizar tarea
+        # CS.execute('update tareas set Titulo_Tarea =%s, Fecha_Inicio=%s, Fecha_Fin=%s, Descripcion=%s where ID_Tarea=%s', (vtitulo, vmateria, vfechaInicio, vfechaFin, vdescripcion, ID_Tarea))
+        CS.execute('UPDATE tareas SET Titulo_Tarea=%s, Materia=%s, Fecha_Inicio=%s, Fecha_Fin=%s, Descripcion=%s WHERE ID_Tarea=%s AND ID_Usuario=%s',
+           (vtitulo, vmateria, vfechaInicio, vfechaFin, vdescripcion, ID_Tarea, id_usuario))
+
+
+        mysql.connection.commit()
+    
+    destinatario = session['correo_usuario']
+    asunto = 'Tienes una actualizacion de una tarea'
+    contenido = f"""
+        Se ha actualizado la tarea:
+
+        Título: {vtitulo}
+        Materia: {vmateria}
+        Fecha de inicio: {vfechaInicio}
+        Fecha de entrega: {vfechaFin}
+
+        Descripción: {vdescripcion}
+
+
+        ¡Gracias por utilizar nuestra aplicación de agenda Piplot!
+
+        Saludos,
+        Equipo de la Aplicación
+        """
+    enviar_correo(destinatario, asunto, contenido)
+    flash('Tarea Actualizada Correctamente')
+    return redirect(url_for('inicio'))
+
+
+
+
+
+---------------------------------------------eventos editar --------------------------------------------------
+
+@app.route('/editar_evento/<int:evento_id>', methods=['GET', 'POST'])
+@login_required
+def editar_evento(evento_id):
+    cursor = mysql.connection.cursor()
+
+    if request.method == 'POST':
+        nuevo_titulo = request.form['nuevo_titulo']
+        nueva_descripcion = request.form['nueva_descripcion']
+        nueva_fecha = request.form['nueva_fecha']
+        nueva_hora = request.form['nueva_hora']
+        nueva_ubicacion = request.form['nueva_ubicacion']
+
+        # Actualizar el evento en la base de datos
+        cursor.execute('UPDATE eventos SET Titulo = %s, Descripcion = %s, Fecha = %s, Hora = %s, Ubicacion = %s WHERE ID_Evento = %s', (nuevo_titulo, nueva_descripcion, nueva_fecha, nueva_hora, nueva_ubicacion, evento_id))
+        mysql.connection.commit()
+
+    # Obtener los detalles del evento para mostrar en la vista de edición
+    cursor.execute('SELECT * FROM eventos WHERE ID_Evento = %s', (evento_id,))
+    evento = cursor.fetchone()
+    
+
+    if evento:
+        return render_template('editar_evento.html', evento=evento)
+    
+    destinatario = session['correo_usuario']
+    asunto = 'Tienes una actualizacion de un evento'
+    contenido = f"""
+      El evento se actualizo correctamente:
+
+        Título: {nuevo_titulo}
+        Fecha: {nueva_fecha}
+        Hora: {nueva_hora}
+        Ubicación: {nueva_ubicacion}
+
+        Descripción: {nueva_descripcion}
+
+        ¡Gracias por utilizar nuestra aplicación de agenda!
+
+        Saludos,
+        Equipo de la Aplicación
+        """
+    enviar_correo(destinatario, asunto, contenido)
+    
+    cursor.close()
+    flash('Evento actualizado correctamente')
+    return redirect(url_for('inicio'))

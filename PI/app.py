@@ -21,7 +21,7 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__fil
 # Configuraciones para la conexion con la BD
 app.config['MYSQL_HOST']= "localhost"
 app.config['MYSQL_USER']= "root"
-app.config['MYSQL_PASSWORD']= "pass1234"
+app.config['MYSQL_PASSWORD']= "danny22"
 app.config['MYSQL_DB']= "agendabd"
 
 
@@ -29,16 +29,17 @@ app.secret_key= 'mysecretkey'
 mysql = MySQL(app)
 
 
-# # Cargar variables de entorno desde el archivo .env
-# config = Config(RepositoryEnv('.env'))
+# Cargar variables de entorno desde el archivo .env
 
-# # Configuración para enviar correos electrónicos
-# app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Servidor de correo saliente (SMTP)
-# app.config['MAIL_PORT'] = 587  # Puerto del servidor SMTP
-# app.config['MAIL_USE_TLS'] = True  # Usar TLS para cifrar la conexión
-# app.config['MAIL_USERNAME'] = 'piplotupq@gmail.com'  #dirección de correo electrónico
-# app.config['MAIL_PASSWORD'] = 'klederkbvpewgbvi'
-# mail = Mail(app)
+config = Config(RepositoryEnv('.env'))
+
+# Configuración para enviar correos electrónicos
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Servidor de correo saliente (SMTP)
+app.config['MAIL_PORT'] = 587  # Puerto del servidor SMTP
+app.config['MAIL_USE_TLS'] = True  # Usar TLS para cifrar la conexión
+app.config['MAIL_USERNAME'] = 'piplotupq@gmail.com'  #dirección de correo electrónico
+app.config['MAIL_PASSWORD'] = config('MAIL_PASSWORD')
+mail = Mail(app)
 
 def enviar_correo(destinatario, asunto, contenido):
     try:
@@ -194,7 +195,7 @@ def editar_tarea(tarea_id):
     destinatario = session['correo_usuario']
     asunto = 'Tienes una actualizacion de una tarea'
     contenido = f"""
-        Se ha actualizado la tarea:
+        Tu tarea se  ha actualizado correctamente:
 
         Título: {nuevo_titulo}
         Materia: {nueva_materia}
@@ -251,29 +252,53 @@ def editar_evento(evento_id):
     cursor = mysql.connection.cursor()
 
     if request.method == 'POST':
+        # Obtener los datos actualizados del formulario
         nuevo_titulo = request.form['nuevo_titulo']
-        nueva_descripcion = request.form['nueva_descripcion']
         nueva_fecha = request.form['nueva_fecha']
         nueva_hora = request.form['nueva_hora']
         nueva_ubicacion = request.form['nueva_ubicacion']
+        nueva_descripcion = request.form['nueva_descripcion']
 
         # Actualizar el evento en la base de datos
-        cursor.execute('UPDATE eventos SET Titulo = %s, Descripcion = %s, Fecha = %s, Hora = %s, Ubicacion = %s WHERE ID_Evento = %s', (nuevo_titulo, nueva_descripcion, nueva_fecha, nueva_hora, nueva_ubicacion, evento_id))
+        cursor.execute('UPDATE eventos SET Titulo = %s, Fecha = %s, Hora = %s, Ubicacion = %s, Descripcion = %s WHERE ID_Evento = %s', (nuevo_titulo, nueva_fecha, nueva_hora, nueva_ubicacion, nueva_descripcion, evento_id))
         mysql.connection.commit()
+
+        destinatario = session['correo_usuario']
+        asunto = 'Tienes una actualización de un evento'
+        contenido = f"""
+            El evento se actualizó correctamente:
+
+            Nuevo título: {nuevo_titulo}
+            Nueva fecha: {nueva_fecha}
+            Nueva hora: {nueva_hora}
+            Nueva ubicación: {nueva_ubicacion}
+
+            Descripción: {nueva_descripcion}
+
+            ¡Gracias por utilizar nuestra aplicación de agenda!
+
+            Saludos,
+            Equipo de la Aplicación
+            """
+        enviar_correo(destinatario, asunto, contenido)
+
+        cursor.close()
 
         flash('Evento actualizado correctamente')
         return redirect(url_for('inicio'))
 
-    # Obtener los detalles del evento para mostrar en la vista de edición
-    cursor.execute('SELECT * FROM eventos WHERE ID_Evento = %s', (evento_id,))
-    evento = cursor.fetchone()
-    cursor.close()
-
-    if evento:
-        return render_template('editar_evento.html', evento=evento)
     else:
-        flash('No se encontró el evento')
-        return redirect(url_for('inicio'))
+        # Obtener los detalles del evento a editar
+        cursor.execute('SELECT * FROM eventos WHERE ID_Evento = %s', (evento_id,))
+        evento = cursor.fetchone()
+        cursor.close()
+
+        if evento:
+            return render_template('editar_evento.html', evento=evento)
+        else:
+            flash('No se encontró el evento')
+            return redirect(url_for('inicio'))
+
 
 
 @app.route('/eliminar_evento/<int:evento_id>', methods=['GET', 'POST'])
@@ -302,10 +327,6 @@ def eliminar_evento(evento_id):
 
 
 
-
-    
-    
-    
 
 @app.route('/perfil')
 @login_required
@@ -478,7 +499,7 @@ def registroTareaf():
         """
     enviar_correo(destinatario, asunto, contenido)
     flash('Tarea agregada correctamente')    
-    return redirect(url_for('administracion_tareas'))
+    return redirect(url_for('inicio'))
 
 
 @app.route("/consultaTareas")
@@ -546,25 +567,33 @@ def marcar_completada(tarea_id):
         CS.execute('DELETE FROM tareas WHERE ID_Tarea = %s', (tarea_id,))
         
         mysql.connection.commit()
-        CS.close()
         
-        return redirect(url_for('inicio'))
-    else:
-        flash("La tarea no pudo ser encontrada", "error")
-        return redirect(url_for('inicio'))
+    destinatario = session['correo_usuario']
+    asunto = 'Tarea completada'
+    contenido = f"""
+        Felicidades has completado con exito tu tarea.
 
-@app.route("/eliminar_tarea_backup/<int:tarea_id>", methods=["POST"])
+        ¡Gracias por utilizar nuestra aplicación de agenda Piplot!
+
+        Saludos,
+        Equipo de la Aplicación
+        """
+    enviar_correo(destinatario, asunto, contenido)
+    return redirect(url_for('inicio'))
+
+
+@app.route('/eliminar_tarea_backup/<int:tarea_id>', methods=['POST'])
 @login_required
 def eliminar_tarea_backup(tarea_id):
-    CS = mysql.connection.cursor()
+    cursor = mysql.connection.cursor()
 
-    # Aquí ejecuta el código para eliminar la tarea de la tabla de respaldo
-    CS.execute('DELETE FROM tareas_backup WHERE ID_Tarea = %s', (tarea_id,))
-    
+    # Eliminar la tarea completada de la tabla tareas_backup
+    cursor.execute('DELETE FROM tareas_backup WHERE ID_Tarea = %s', (tarea_id,))
     mysql.connection.commit()
-    CS.close()
 
-    return redirect(url_for('progreso'))
+    flash('Tarea eliminada correctamente del historial')
+    return redirect(url_for('Progreso'))
+
 
 @app.route('/cerrar')
 def logout():

@@ -1,14 +1,13 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Seguimiento de Progreso</title>
     <link rel="stylesheet" type="text/css" href="../static/progreso.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     {% include 'menu.html'%}
     <div class="container">
-        <h2 class="titulo">Seguimiento de Progreso</h2>
+        <h2 class="titulo">Historial</h2>
         <h3>Actividades Completadas</h3>
         <ul id="completed-list">
             {% for tarea in tareas_completadas %}
@@ -29,21 +28,65 @@
         
     </div>
 
-    <script>
-        function confirmDelete(tareaId) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: 'Esta acción eliminará la tarea de la tabla de respaldo',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/eliminar_tarea_backup/" + tareaId;
-                }
-            });
-        }
-    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seguimiento de Progreso</title>
+    <link rel="stylesheet" type="text/css" href="../static/progreso.css">
+</head>
+<body>
+    {% include 'menu.html'%}
+    <div class="container">
+        <h2 class="titulo">Historial</h2>
+        <h3>Actividades Completadas</h3>
+        <ul id="completed-list">
+            {% for tarea in tareas_completadas %}
+            <li class="completed-task">
+                <details>
+                    <summary>{{ tarea[1] }}</summary>
+                    <p><strong>Fecha de Inicio:</strong> {{ tarea[3] }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ tarea[4] }}</p>
+                    <p><strong>Descripción:</strong> {{ tarea[5] }}</p>
+                    <form method="post" action="{{ url_for('eliminar_tarea_backup', tarea_id=tarea[0]) }}">
+                        <button type="submit" class="delete-button">Eliminar Tarea</button>
+                    </form>
+                </details>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    {% with mensajes = get_flashed_messages(with_categories=True) %}
+            {% if mensajes %}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        {% for category, message in mensajes %}
+                            {% if category == 'error' %}
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    text: "{{ message }}",
+                                    showConfirmButton: true,
+                                    timer: 5000
+                                });
+                            {% else %}
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    text: "{{ message }}",
+                                    showConfirmButton: true,
+                                    timer: 5000
+                                });
+                            {% endif %}
+                        {% endfor %}
+                    });
+                </script>
+            {% endif %}
+        {% endwith %}
 </body>
 </html>
